@@ -9,7 +9,7 @@ Trapper.js is a super-awesome data binding engine for JavaScript. It's simple to
     car.set('speed', 53);
     // → "We're going 53 miles per hour!"
 
-You can put any data in a trapper, but arrays and plain objects get special treatment. You can dive as deep as you want when setting or getting with dot syntax (`auction.get(bidders.0.bid)`) or arrays (`workOrder.set(['time', 'start'], '8:30)`).
+You can put any data in a trapper, but arrays and plain objects get special treatment. You can dive as deep as you want when setting or getting with dot syntax (`auction.get("bidders.0.bid")`) or arrays (`workOrder.set(['time', 'start'], '8:30')`).
 
 You can bind at any level of a `Trapper`, and even grab a reference to a value inside the structure:
 
