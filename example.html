@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Trapper.js</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.haml.js"></script>
+	<script type="text/javascript" src="js/stencil.js"></script>
+	<script type="text/javascript" src="js/trapper.js"></script>
+	<script type="text/javascript">
+		var listTrapper,
+		
+		    var template = ['#product',
+		    	['%h1', {key:'name'}], ['%h2', {key:'price'}],
+		    	['%ul#reviews', {key: 'reviews', children:[
+		    		'%li', ['%p.name', {key:'reviewer'}, ' (', ['%span', {key:'date'}], ')'],
+		    		['%p', {key:'review'}]
+		    	]}]
+		    ],
+			
+			data = new Trapper({
+				name: "Food blender",
+				price: "99.95",
+				reviews: [
+					{
+						reviewer: "Bob",
+						date: "2010-06-18T00:14:40.687Z",
+						review: "It sucks."
+					},
+					{
+						reviewer: "Steve",
+						date: "2010-06-19T00:14:40.687Z",
+						review: "It's awesome."
+					}
+				]
+			});
+			
+		$(document).ready(function(){
+			$(document.body).haml(stencil(template, data));
+		});
+	</script>
+</head>
+
+<body>

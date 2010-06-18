@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>The Auction House</title>
+	<style type="text/css">
+		html, body{
+			font-family: Helvetica, sans-serif;
+		}
+		#head{
+			border-bottom: 1px solid #555;
+			margin: 1em 0;
+		}
+		#head h1{
+			font-size: 1.5em;
+			margin: 0;
+		}
+		#head p{
+			margin: 0.5em 0;
+			font-style: italic;
+		}  
+		#body{
+			margin: 0 2em;
+		}
+		.product{
+			font-size: 120px;
+			width: 132px;
+			height: 132px;
+			line-height: 1.1em;
+			text-align: center;
+			border: 1px solid black;
+			float: left;
+			margin: 0 10px 10px 0;
+		}
+		#details{
+			margin-left: 142px;
+		}
+		#price{
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFC), to(#FF8));
+			-webkit-border-radius: 10px;
+			border: 1px solid #FC0;
+			line-height: 1.5em;
+			text-align: center;
+			width: 12em;
+			font-size: 1.5em;
+		}
+		#bidders{
+			clear: both;
+			border-top: 1px solid #777;
+			list-style: none;
+			padding: 0;
+			border: 1px solid black;
+			width: 50%;
+			margin: 0 auto;
+			-webkit-border-radius: 10px;
+		}
+		#bidders>li{
+			line-height: 2em;
+			border-bottom: 1px solid black;
+			padding: 5px;
+		}
+		#bidders>li:last-of-type{
+			border-bottom: none;
+		}
+		#bidders .bid{
+			float: right;
+			font-weight: bold;
+		}
+		.reviews h3{
+			margin: 0.5em;
+		}
+		#bid{
+			position: fixed;
+			top: 0;
+			right: 0;
+			padding: 10px;
+			background: #333;
+			color: white;
+			opacity: 0.1;
+			-webkit-border-bottom-left-radius: 10px;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.haml.js"></script>
+	<script type="text/javascript" src="js/stencil.js"></script>
+	<script type="text/javascript" src="js/trapper.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var priceTrapper = new Trapper('1');
+			$('#price').haml(stencil({key:''}, priceTrapper));
+			window['priceTrapper'] = priceTrapper;
+			
+			var biddersTrapper = new Trapper([{name:"MsKittenPaws105", bid:160}, {name:"fjones", bid:120}, {name:"CellPhonesXTreme", bid:150}]);
+			$('#bidders').haml(stencil({key:'', children:['%li', {key:'name'}, ['.bid', '$', {key:'bid'}]]}, biddersTrapper));
+			window['biddersTrapper'] = biddersTrapper;
+			
+			function sortBids(trapper){
+				trapper.set(trapper.get().sort(function(a, b){
+					if (a.bid < b.bid) {
+						return 1;
+					} else if (a.bid > b.bid) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}));
+			};
+			sortBids(biddersTrapper);
+			
+			function incrementBid(){
+				var bid = biddersTrapper.resolve([Math.floor(Math.random()*biddersTrapper.store.length), 'bid']),
+				    newBid = Math.max.apply(this, $.map(biddersTrapper.get(), function(bidder){ return bidder.bid }))+Math.floor(Math.random()*10);
+				bid.set(newBid);
+				priceTrapper.set(newBid);
+				sortBids(biddersTrapper);
+			}
+			window['bid'] = incrementBid;
+			$('#bid').click(function(){
+				incrementBid();
+				return false;
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div id="head">
+		<h1>The Auction House</h1>
+		<p>Other people have things that you want!</p>
+	</div>
+	<div class="product">&#x2603;</div>
+	<div id="details">
+		<h2>That really cool thing from the 1980s</h2>
+		<div id="price">Current bid: $</div>
+	</div>
+	<ul id="bidders">
+	</ul>
+	<div id="bid">Bid!</div>

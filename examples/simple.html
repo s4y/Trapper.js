@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Trapper.js</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.haml.js"></script>
+	<script type="text/javascript" src="js/stencil.js"></script>
+	<script type="text/javascript" src="js/trapper.js"></script>
+	<script type="text/javascript">
+		var listTrapper;
+		$(document).ready(function(){
+			listTrapper = new Trapper(["zero", "one", "two"]);
+			
+			$(document.body).haml(stencil(
+				['%ul', { key: '', children:[
+					'%li', {key: ''}
+				]}]
+				, listTrapper));
+		});
+	</script>
+</head>
+
+<body>
