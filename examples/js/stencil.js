@@ -25,7 +25,7 @@
 	}
 	
 	function stencil(template, data, index){
-		var bound = data instanceof Trapper;
+		var bound = typeof Trapper === 'function' && data instanceof Trapper;
 		if ($.isArray(template)) {
 			template = Array.prototype.slice.call(template, 0);
 			for(var i = 0, l = template.length; i < l; i++){
@@ -61,5 +61,9 @@
 		}
 		return template;
 	}
-	window['stencil'] = stencil;
+	
+	window.stencil = stencil;
+	jQuery.fn.stencil = function(template, data){
+		this.haml(stencil(template, data));
+	};
 })();

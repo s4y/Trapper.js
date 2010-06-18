@@ -20,7 +20,7 @@ You can bind at any level of a `Trapper`, and even grab a reference to a value i
 
 Trapper works like magic with [`stencil.js`](http://github.com/Sidnicious/stencil.js), my `jquery-haml` templating library:
 
-    $(document.body).haml(stencil(['#speed', 'Current speed: ', {key: 'speed'}, ' MPH']));
+    $(document.body).stencil(['#speed', 'Current speed: ', {key: 'speed'}, ' MPH']);
     // → <div id="speed">Current speed: 53 MPH</div>
     speed.set('88');
     // → "We're going 88 miles per hour!"
@@ -29,6 +29,6 @@ Trapper works like magic with [`stencil.js`](http://github.com/Sidnicious/stenci
 …even with directives like `children`:
 
 var tags = new Trapper(['awesome', 'pink', 'fluffy', 'puppy']);
-$('#tags').haml(stencil({key: '', children:['%span', {key: ''}]}));
+$('#tags').stencil({key: '', children:['%span', {key: ''}]});
 
 `Trapper.js` is brand new! If you run into any problems, file an issue. If you want to help, send me a message or fork and hack away.

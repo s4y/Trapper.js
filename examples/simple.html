@@ -12,11 +12,11 @@
 		$(document).ready(function(){
 			listTrapper = new Trapper(["zero", "one", "two"]);
 			
-			$(document.body).haml(stencil(
+			$(document.body).stencil(
 				['%ul', { key: '', children:[
 					'%li', {key: ''}
 				]}]
-				, listTrapper));
+				, listTrapper);
 		});
 	</script>
 </head>

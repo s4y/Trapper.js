@@ -87,11 +87,11 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var priceTrapper = new Trapper('1');
-			$('#price').haml(stencil({key:''}, priceTrapper));
+			$('#price').stencil({key:''}, priceTrapper);
 			window['priceTrapper'] = priceTrapper;
 			
 			var biddersTrapper = new Trapper([{name:"MsKittenPaws105", bid:160}, {name:"fjones", bid:120}, {name:"CellPhonesXTreme", bid:150}]);
-			$('#bidders').haml(stencil({key:'', children:['%li', {key:'name'}, ['.bid', '$', {key:'bid'}]]}, biddersTrapper));
+			$('#bidders').stencil({key:'', children:['%li', {key:'name'}, ['.bid', '$', {key:'bid'}]]}, biddersTrapper);
 			window['biddersTrapper'] = biddersTrapper;
 			
 			function sortBids(trapper){
